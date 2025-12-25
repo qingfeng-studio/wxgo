@@ -35,6 +35,9 @@ func NewClient(cfg Config) (*Client, error) {
 
 	// 初始化 transport client
 	httpClient := transport.NewClient()
+	if cfg.HTTPTimeout > 0 {
+		httpClient.SetTimeout(cfg.HTTPTimeout)
+	}
 
 	return &Client{
 		cfg:   cfg,

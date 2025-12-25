@@ -35,6 +35,19 @@ func main() {
 		fmt.Printf("✅ Token: %s\n\n", token1)
 	}
 
+	// 公众号二维码：临时 + scene_str，并下载图片（示例路径自行处理）
+	qr, qrCode, err := client1.CreateQRCode(ctx, wxgo.QRCodeOption{
+		SceneStr:      "campaign=spring&channel=demo&ref=uid123",
+		ExpireSeconds: 300,
+		Permanent:     false,
+		Download:      false, // 设为 true 可直接拿到图片字节
+	})
+	if err != nil {
+		log.Printf("生成二维码失败(code=%s): %v\n\n", qrCode, err)
+	} else {
+		fmt.Printf("✅ 二维码 ticket=%s\nurl=%s\n\n", qr.Ticket, qr.URL)
+	}
+
 	// ==========================================
 	// 用法2：Redis 单点
 	// ==========================================
